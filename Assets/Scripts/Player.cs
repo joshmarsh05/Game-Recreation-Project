@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private float inputY;
     private float jumpTimeCounter;
     private bool isJumping;
+    private Camera m_Camera;
+    private Vector2 screenBounds;
 
     // Use these variable to the check if the player is grounded or not
     [Space]
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        m_Camera = Camera.main;
+
         if(!rb)
             rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 4f;
@@ -42,13 +46,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // restrict player movement
+        screenBounds = m_Camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        float clampedX = Mathf.Clamp(transform.position.x, -screenBounds.x, screenBounds.x);
+        Vector2 pos = transform.position;
+        pos.x = clampedX;
+        transform.position = pos;
         // Input
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 
         //Flip the player based on the Input
-        if (inputX > 0)
+        if (inputX > 0){
             transform.eulerAngles = new Vector3(0, 0, 0);
+        }
         else if (inputX < 0)
             transform.eulerAngles = new Vector3(0, 180, 0);
 
