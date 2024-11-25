@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     private bool isJumping;
     private Camera m_Camera;
     private Vector2 screenBounds;
+    private float previousPlayerX;
+    private float currentPlayerX;
+    public float minX = -8.3f;
+    public float maxX = 8.3f;
 
     // Use these variable to the check if the player is grounded or not
     [Space]
@@ -46,12 +50,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // camera movement
+        if(previousPlayerX < currentPlayerX)
+            previousPlayerX = currentPlayerX;
+        currentPlayerX = transform.position.x;
+        if(currentPlayerX > previousPlayerX){
+            m_Camera.transform.position = new Vector3(currentPlayerX, 0, -10);
+        }
         // restrict player movement
-        screenBounds = m_Camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        float clampedX = Mathf.Clamp(transform.position.x, -screenBounds.x, screenBounds.x);
+        float clampedX = Mathf.Clamp(transform.position.x, minX + m_Camera.transform.position.x, maxX + m_Camera.transform.position.x);
         Vector2 pos = transform.position;
         pos.x = clampedX;
         transform.position = pos;
+
         // Input
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
@@ -62,6 +73,11 @@ public class Player : MonoBehaviour
         }
         else if (inputX < 0)
             transform.eulerAngles = new Vector3(0, 180, 0);
+        
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+            speed = 10f;
+        else
+            speed = 5f;
 
         // Check whether the player is grounded or not
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
@@ -93,7 +109,7 @@ public class Player : MonoBehaviour
             isJumping = false;
 
         // Animation
-        if(inputX != 0)
+        if(inputX != 0 && currentPlayerX != previousPlayerX)
             animator.SetBool("Running", true);
         else
             animator.SetBool("Running", false);
