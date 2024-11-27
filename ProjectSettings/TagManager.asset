@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Block
   - Secret
+  - PowerUp
+  - Attack
+  - Dead
   layers:
   - Default
   - TransparentFX

@@ -193,10 +193,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2334558573626243563}
   block: 1
+  powerUp: 0
   powerUps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5081947591156558634, guid: 8079c449442c9d24487d9ad57e32d6f7, type: 3}
+  - {fileID: 8924606316807175161, guid: 1210bf2d77fcd7b45840caa24f03c8b8, type: 3}
+  - {fileID: 6162459874746267871, guid: 28e0d69495e65554395a73463b4dbf06, type: 3}
+  question: 1
+  yOffset: 1
 --- !u!95 &2334558573626243563
 Animator:
   serializedVersion: 5
@@ -228,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1319063260441051433}
   - component: {fileID: 4191939582167930318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

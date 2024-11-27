@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] BoxCollider2D boxCol;
+    public float minX = -8.3f;
+    public float maxX = 8.3f;
     private float inputX;
     private float inputY;
     private float jumpTimeCounter;
@@ -19,8 +22,6 @@ public class Player : MonoBehaviour
     private Vector2 screenBounds;
     private float previousPlayerX;
     private float currentPlayerX;
-    public float minX = -8.3f;
-    public float maxX = 8.3f;
 
     // Use these variable to the check if the player is grounded or not
     [Space]
@@ -36,6 +37,19 @@ public class Player : MonoBehaviour
     public float jumpForce = 20f;
     public float jumpTime = 0.25f;   
 
+    private bool mini = true;
+    private bool big = false;
+    private bool fire = false;
+    public GameObject fireball;
+    public float fireBallOffset;
+    private bool star = false;
+    private float timer = 0f;
+    private float starTimer = 5f;
+    private bool invulnerable = false;
+    private float invulnerableTimerCount = 0f;
+    private float invulnerableTimer = 3f;
+
+
     void Start()
     {
         m_Camera = Camera.main;
@@ -43,6 +57,8 @@ public class Player : MonoBehaviour
         if(!rb)
             rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 4f;
+        if(!boxCol)
+            boxCol = GetComponent<BoxCollider2D>();
         if(!animator)
             animator = GetComponent<Animator>();
         
@@ -73,11 +89,6 @@ public class Player : MonoBehaviour
         }
         else if (inputX < 0)
             transform.eulerAngles = new Vector3(0, 180, 0);
-        
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-            speed = 10f;
-        else
-            speed = 5f;
 
         // Check whether the player is grounded or not
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
@@ -108,6 +119,30 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
             isJumping = false;
 
+        
+        // Power Ups
+        if(star){
+            timer++;
+            if(timer > starTimer){
+                star = false;
+                animator.SetBool("Star", false);
+                timer = 0;
+            }
+        }
+
+        if(fire && Input.GetKeyDown(KeyCode.LeftShift))
+            Instantiate(fireball, new Vector3(transform.position.x + fireBallOffset, transform.position.y, 0), transform.rotation);
+
+        // if hit by enemy and transform down 
+        if(invulnerable){
+            invulnerableTimerCount++;
+            if(invulnerableTimerCount > invulnerableTimer){
+                invulnerable = false;
+                animator.SetBool("Invulnerable", false);
+                invulnerableTimerCount = 0;
+            }
+        }
+
         // Animation
         if(inputX != 0 && currentPlayerX != previousPlayerX)
             animator.SetBool("Running", true);
@@ -126,4 +161,51 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
     }
 
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "PowerUp"){
+            if(other.gameObject.name == "Mushroom"){
+                mini = false;
+                big = true;
+                animator.SetBool("Big", true);
+                animator.SetBool("Mini", false);
+            } else if(other.gameObject.name == "FireFlower"){
+                mini = false;
+                big = true;
+                fire = true;
+                animator.SetBool("Fire", true);
+                animator.SetBool("Mini", false);
+            } else if(other.gameObject.name == "Star"){
+                star = true;
+                animator.SetBool("Star", true);
+            }
+            if(big){
+                
+            }
+                
+            Destroy(other.gameObject);
+        }
+
+        if(other.gameObject.tag == "Enemy"){
+            if(mini && !invulnerable)
+                Dead();
+            else if(big || fire){
+                mini = true;
+                big = false;
+                fire = false;
+                invulnerable = true;
+            } else if(star){
+                other.gameObject.GetComponent<Enemy>().Dead();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(isJumping){
+            isJumping = false;
+        }
+    }
+
+    void Dead(){
+
+    }
 }
