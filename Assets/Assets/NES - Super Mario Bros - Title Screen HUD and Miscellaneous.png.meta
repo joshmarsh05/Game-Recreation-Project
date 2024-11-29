@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,7 +53,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -93,20 +93,143 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
-    outline: []
+    sprites:
+    - serializedVersion: 2
+      name: NES - Super Mario Bros - Title Screen HUD and Miscellaneous_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 772
+        width: 256
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dde4d4a4c746ace48b349929c456bea6
+      internalID: -1697779927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -392, y: 434}
+      - {x: -392, y: -434}
+      - {x: 392, y: -434}
+      - {x: 392, y: 434}
+    - - {x: -392, y: 338.14874}
+      - {x: -392, y: 370.0335}
+      - {x: -136.1003, y: 369.9549}
+      - {x: -136.10031, y: 338.06818}
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_0: -1358216985
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_1: 377590315
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_10: 1253272911
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_11: -1097050653
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_12: 333103767
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_13: 1229449248
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_14: -1160044191
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_15: 1616279657
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_16: 608451301
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_17: 153024943
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_18: 1430560842
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_19: 778894920
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_2: 1441207255
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_20: 1091484934
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_21: 330724770
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_22: 196113083
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_23: 2135807548
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_24: 1750702493
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_25: 564027304
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_26: 249610148
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_27: -2122826241
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_28: 434840709
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_29: 1661758017
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_3: 133403621
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_30: -1561897814
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_31: -149100080
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_32: -403869775
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_33: -988921518
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_34: -581319985
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_35: -1221794804
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_36: -73571188
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_37: 1380557926
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_38: -1827773601
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_39: 1273151788
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_4: -883951171
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_40: 44478411
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_41: 413007221
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_42: -493823871
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_43: -1321902714
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_44: 604507039
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_45: -126178860
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_46: 1794090779
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_47: 1772913309
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_48: -1613607427
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_49: -1891538751
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_5: 1343160505
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_50: -911652400
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_51: 582859312
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_52: -1785193151
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_53: -1827408903
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_54: -372737118
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_55: -1917513698
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_56: -221261627
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_57: -1396275819
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_58: 2145013103
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_59: -1008817062
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_6: -1697779927
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_60: -843309967
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_61: -443347739
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_62: -704389890
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_63: -1895094586
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_64: 1742422376
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_65: 1537186225
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_66: 1902270717
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_67: -1331447769
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_68: 1875269943
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_69: 1128039999
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_7: 1673835661
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_70: 341566597
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_71: -2042117023
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_72: -1508144424
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_73: -1811816247
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_74: -1734921234
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_75: -1002081177
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_76: -415242458
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_77: 422889365
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_78: -1220421256
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_79: 683483832
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_8: 218814579
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_80: 1391547500
+      NES - Super Mario Bros - Title Screen HUD and Miscellaneous_9: -1512936362
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
