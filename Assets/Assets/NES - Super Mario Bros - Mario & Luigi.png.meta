@@ -919,9 +919,9 @@ TextureImporter:
       name: NES - Super Mario Bros - Mario & Luigi_39
       rect:
         serializedVersion: 2
-        x: 35
+        x: 36
         y: 224
-        width: 17
+        width: 16
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

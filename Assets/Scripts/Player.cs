@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] BoxCollider2D boxCol;
     public float minX = -8.3f;
     public float maxX = 8.3f;
     private float inputX;
@@ -41,7 +40,10 @@ public class Player : MonoBehaviour
     private bool big = false;
     private bool fire = false;
     public GameObject fireball;
-    public float fireBallOffset;
+    public float fireballOffset;
+    private float fireball1Timer = 0f;
+    private float fireball2Timer = 0f;
+    private float fireballTimer = 0.5f;
     private bool star = false;
     private float timer = 0f;
     private float starTimer = 5f;
@@ -57,8 +59,6 @@ public class Player : MonoBehaviour
         if(!rb)
             rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 4f;
-        if(!boxCol)
-            boxCol = GetComponent<BoxCollider2D>();
         if(!animator)
             animator = GetComponent<Animator>();
         
@@ -86,9 +86,12 @@ public class Player : MonoBehaviour
         //Flip the player based on the Input
         if (inputX > 0){
             transform.eulerAngles = new Vector3(0, 0, 0);
+            fireballOffset = 2f;
         }
-        else if (inputX < 0)
+        else if (inputX < 0) {
             transform.eulerAngles = new Vector3(0, 180, 0);
+            fireballOffset = -2f;
+        }
 
         // Check whether the player is grounded or not
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
@@ -122,7 +125,7 @@ public class Player : MonoBehaviour
         
         // Power Ups
         if(star){
-            timer++;
+            timer += Time.deltaTime;
             if(timer > starTimer){
                 star = false;
                 animator.SetBool("Star", false);
@@ -130,12 +133,24 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(fire && Input.GetKeyDown(KeyCode.LeftShift))
-            Instantiate(fireball, new Vector3(transform.position.x + fireBallOffset, transform.position.y, 0), transform.rotation);
+        if(fire){
+            fireball1Timer += Time.deltaTime;
+            fireball2Timer += Time.deltaTime;
+            if(Input.GetKeyDown(KeyCode.LeftShift)){
+                if(fireball1Timer > fireballTimer){
+                Instantiate(fireball, new Vector3(transform.position.x + fireballOffset, transform.position.y, 0), transform.rotation);
+                fireball1Timer = 0;
+                }
+                else if(fireball2Timer > fireballTimer){
+                Instantiate(fireball, new Vector3(transform.position.x + fireballOffset, transform.position.y, 0), transform.rotation);
+                fireball2Timer = 0;
+                }
+            }
+        }
 
         // if hit by enemy and transform down 
         if(invulnerable){
-            invulnerableTimerCount++;
+            invulnerableTimerCount += Time.deltaTime;
             if(invulnerableTimerCount > invulnerableTimer){
                 invulnerable = false;
                 animator.SetBool("Invulnerable", false);
@@ -163,18 +178,22 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "PowerUp"){
-            if(other.gameObject.name == "Mushroom"){
+            Debug.Log(other.gameObject.name);
+            if(other.gameObject.name == "Mushroom(Clone)"){
+                if(!fire){
+                    mini = false;
+                    big = true;
+                    animator.SetBool("Big", true);
+                    animator.SetBool("Mini", false);
+                }
+            } else if(other.gameObject.name == "FireFlower(Clone)"){
                 mini = false;
-                big = true;
-                animator.SetBool("Big", true);
-                animator.SetBool("Mini", false);
-            } else if(other.gameObject.name == "FireFlower"){
-                mini = false;
-                big = true;
+                big = false;
                 fire = true;
                 animator.SetBool("Fire", true);
+                animator.SetBool("Big", false);
                 animator.SetBool("Mini", false);
-            } else if(other.gameObject.name == "Star"){
+            } else if(other.gameObject.name == "Star(Clone)"){
                 star = true;
                 animator.SetBool("Star", true);
             }

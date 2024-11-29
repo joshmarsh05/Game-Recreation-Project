@@ -111,7 +111,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.465, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3375, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2161639519537117434}
@@ -191,7 +191,7 @@ Transform:
   m_GameObject: {fileID: 6389662221817909300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17, y: -1.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -355,10 +355,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7462546494752967602}
   block: 3
+  powerUp: 0
   powerUps:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  question: 0
+  yOffset: 5
 --- !u!95 &7462546494752967602
 Animator:
   serializedVersion: 5
