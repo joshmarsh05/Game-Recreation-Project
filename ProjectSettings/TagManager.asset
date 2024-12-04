@@ -10,6 +10,10 @@ TagManager:
   - Attack
   - Dead
   - Ground
+  - Flag
+  - Coin
+  - Exit
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,8 +22,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - PowerUp
+  - Enemy
   - 
   - 
   - 

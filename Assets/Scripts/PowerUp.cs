@@ -11,6 +11,7 @@ public class PowerUp : MonoBehaviour
     void Strat(){
         if(!rb)
             rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(7, 8);
     }
 
     void FixedUpdate()
@@ -19,6 +20,7 @@ public class PowerUp : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        direction *= -1;
+        if(other.gameObject.tag != "Ground" && other.gameObject.tag != "Block")
+            direction *= -1;
     }
 }

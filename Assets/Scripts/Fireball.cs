@@ -36,14 +36,12 @@ public class Fireball : MonoBehaviour
     {
         rb.velocity = new Vector2 (velocity.x, -velocity.y);
         if (collision.gameObject.tag != "Ground") {
-            if(collision.gameObject.tag == "Enemy")
-                Destroy(collision.gameObject);
             animator.SetTrigger("Explode");
         }
     }
 
-    void Explode()
-    {
+    void Explode(){
         Destroy(this.gameObject);
     }
+
 }

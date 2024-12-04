@@ -18,6 +18,7 @@ public enum PowerUpType{
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
     public Animator animator;
     public BlockType block;
     public PowerUpType powerUp;
@@ -33,6 +34,8 @@ public class Block : MonoBehaviour
             animator = GetComponent<Animator>();
         if(question)
             animator.SetBool("Question", true);
+        if(!gameManager)
+            gameManager = GameObject.Find("HUD").GetComponent<GameManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -53,10 +56,12 @@ public class Block : MonoBehaviour
             } else if(block == BlockType.Coin){
                 animator.SetBool("Unbreakable", true);
                 block = BlockType.Unbreakable;
+                gameManager.AddCoin();
 
             } else if(block == BlockType.MultiCoin){
                 animator.SetTrigger("Hit");
                 hitCount++;
+                gameManager.AddCoin();
                 if(hitCount == multiCoinHits){
                     animator.SetBool("Unbreakable", true);
                     block = BlockType.Unbreakable;

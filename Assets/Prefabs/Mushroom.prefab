@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2017166842078496034}
   - component: {fileID: 6787932403010351088}
   - component: {fileID: 1155472910242277195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 593597297, guid: 86b93d49810bbef4cae7015b289f47ab, type: 3}
   m_Color: {r: 0.7783019, g: 1, b: 0.950444, a: 1}
   m_FlipX: 0
@@ -102,7 +102,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
