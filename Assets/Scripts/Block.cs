@@ -19,6 +19,7 @@ public enum PowerUpType{
 public class Block : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
+    [SerializeField] AudioManager audioManager;
     public Animator animator;
     public BlockType block;
     public PowerUpType powerUp;
@@ -36,6 +37,8 @@ public class Block : MonoBehaviour
             animator.SetBool("Question", true);
         if(!gameManager)
             gameManager = GameObject.Find("HUD").GetComponent<GameManager>();
+        if(!audioManager)
+            audioManager = GameObject.Find("HUD").GetComponent<AudioManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -43,9 +46,11 @@ public class Block : MonoBehaviour
         if (other.gameObject.tag == "Player"){
             if(block == BlockType.Empty){
                 animator.SetTrigger("Break");
+                audioManager.PlaySFX("Break");
             } else if(block == BlockType.PowerUp){
                 animator.SetBool("Unbreakable", true);
                 block = BlockType.Unbreakable;
+                audioManager.PlaySFX("PowerUpSpawn");
                 if(powerUp == PowerUpType.Mushroom)
                     Instantiate(powerUps[0], new Vector3(transform.position.x, transform.position.y + yOffset, 0), transform.rotation);
                 else if(powerUp == PowerUpType.FireFlower)
@@ -57,9 +62,10 @@ public class Block : MonoBehaviour
                 animator.SetBool("Unbreakable", true);
                 block = BlockType.Unbreakable;
                 gameManager.AddCoin();
-
+                audioManager.PlaySFX("Coin");
             } else if(block == BlockType.MultiCoin){
                 animator.SetTrigger("Hit");
+                audioManager.PlaySFX("Coin");
                 hitCount++;
                 gameManager.AddCoin();
                 if(hitCount == multiCoinHits){

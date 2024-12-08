@@ -294,7 +294,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -315,7 +315,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -336,7 +336,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -357,7 +357,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,6 +365,27 @@ TextureImporter:
       bones: []
       spriteID: 50ee565680e0e14449527c025c564a02
       internalID: 1595189224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Super Mario Bros - Items Objects and NPCs_13
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 202
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb6c2ed957e0c140ae70d1ef33676e6
+      internalID: -48447071
       vertices: []
       indices: 
       edges: []
@@ -385,6 +406,7 @@ TextureImporter:
       NES - Super Mario Bros - Items Objects and NPCs_10: -5299666
       NES - Super Mario Bros - Items Objects and NPCs_11: 1869574787
       NES - Super Mario Bros - Items Objects and NPCs_12: 1595189224
+      NES - Super Mario Bros - Items Objects and NPCs_13: -48447071
       NES - Super Mario Bros - Items Objects and NPCs_2: 2079833652
       NES - Super Mario Bros - Items Objects and NPCs_3: 1300898289
       NES - Super Mario Bros - Items Objects and NPCs_4: 1073128452

@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
     private float onScreenTime = 0.5f;
     private float timer = 0f;
     private bool onScreen = false;
+    public bool win = false;
 
     // Update is called once per frame
     void Update()
     {
-        time -= Time.deltaTime;
         UpdateHUD();
         if(lives <= 0)
             GameOver();
@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
                 timer = 0;
             }
         }
+        if(!win){
+            time -= Time.deltaTime;
+        } else
+            ConvertTimeToScore();
     }
 
     public void UpdateHUD(){
@@ -43,8 +47,9 @@ public class GameManager : MonoBehaviour
         livesText.text = "Lives\n" + lives.ToString();
     }
 
-    public void AddScore(int _score, Transform _transform){
-        score += _score;
+    public void AddScore(float _score, Transform _transform){
+        score += (int)_score;
+        // displays score pop up
         if(_transform != null){
             scorePopUpText.text = _score.ToString();
             scorePopUpText.transform.position = Camera.main.WorldToScreenPoint(new Vector2(_transform.position.x, _transform.position.y + 0.5f));
@@ -57,6 +62,14 @@ public class GameManager : MonoBehaviour
     public void AddCoin(){
         coins++;
         AddScore(200, null);
+    }
+
+    public void ConvertTimeToScore(){
+        if(time > 0){
+            time -= Time.deltaTime * 100;
+            AddScore(Time.deltaTime * 100 * 50, null);
+        } else
+            time = 0;
     }
 
     public void GameOver(){

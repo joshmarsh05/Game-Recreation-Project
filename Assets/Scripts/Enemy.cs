@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] GameManager gameManager;
+    [SerializeField] AudioManager audioManager;
      private float direction = -1;
     public float speed = 2f;
     public bool jumpDeath = false;
@@ -32,6 +33,8 @@ public class Enemy : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
         if(!gameManager)
             gameManager = GameObject.Find("HUD").GetComponent<GameManager>();
+        if(!audioManager)
+            audioManager = GameObject.Find("HUD").GetComponent<AudioManager>();
     }
 
     void Update(){
@@ -68,10 +71,14 @@ public class Enemy : MonoBehaviour
     public void Dead(){
         gameManager.AddScore(100, this.transform);
         speed = 0f;
-        if(jumpDeath && this.tag == "Enemy")
+        if(jumpDeath && this.tag == "Enemy"){
             animator.SetBool("Stomp", true);
-        else
+            audioManager.PlaySFX("Stomp");
+        }
+        else{
             animator.SetBool("Dead", true);
+            audioManager.PlaySFX("EnemyDeath");
+        }
         this.tag = "Dead";
     }
 

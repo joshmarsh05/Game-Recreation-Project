@@ -8,10 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    [Header("Animation & Rigidbody")]
+    [Header("Important Game Mechanics")]
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] AudioManager audioManager;
+    [SerializeField] GameManager gameManager;
+    public AudioSource music;
     public float minX = -8.3f;
     public float maxX = 8.3f;
     private float inputX;
@@ -53,13 +56,13 @@ public class Player : MonoBehaviour
     private float invulnerableTimer = 3f;
     private bool secretArea = false;
     private bool dead = false;
-
-    [Space]
-    [Header("Game Manager")]
-    [SerializeField] GameManager gameManager;
+    private bool win = false;
+    private bool timeWarning = true;
+    private bool winSounds = true;
 
     void Start()
     {
+        audioManager.PlayMusic("MainTheme");
         m_Camera = Camera.main;
 
         if(!rb)
@@ -73,14 +76,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(!dead){
+        if(!dead && !win){
             // camera movement
             if(!secretArea){
             if(previousPlayerX < currentPlayerX)
                 previousPlayerX = currentPlayerX;
             currentPlayerX = transform.position.x;
             if(currentPlayerX > previousPlayerX){
-                m_Camera.transform.position = new Vector3(currentPlayerX, 0f, -10f);
+                float clampCamera = Mathf.Clamp(currentPlayerX, 0.1f, 121.1f);
+                m_Camera.transform.position = new Vector3(clampCamera, 0f, -10f);
             }
             // restrict player movement
             float clampedX = Mathf.Clamp(transform.position.x, minX + m_Camera.transform.position.x, maxX + m_Camera.transform.position.x);
@@ -113,6 +117,10 @@ public class Player : MonoBehaviour
                 rb.velocity = Vector2.up * jumpForce;
                 isJumping = true;
                 jumpTimeCounter = jumpTime;
+                if(mini)
+                    audioManager.PlaySFX("MiniJump");
+                if(big || fire)
+                    audioManager.PlaySFX("BigJump");
             }
 
             /*
@@ -138,6 +146,7 @@ public class Player : MonoBehaviour
             if(star){
                 timer += Time.deltaTime;
                 if(timer > starTimer){
+                    audioManager.PlayMusic("MainTheme");
                     star = false;
                     animator.SetBool("Star", false);
                     if(mini)
@@ -153,10 +162,12 @@ public class Player : MonoBehaviour
                     if(fireball1Timer > fireballTimer){
                     Instantiate(fireball, new Vector3(transform.position.x + fireballOffset, transform.position.y - 0.5f, 0), transform.rotation);
                     fireball1Timer = 0;
+                    audioManager.PlaySFX("Fireball");
                     }
                     else if(fireball2Timer > fireballTimer){
                     Instantiate(fireball, new Vector3(transform.position.x + fireballOffset, transform.position.y - 0.5f, 0), transform.rotation);
                     fireball2Timer = 0;
+                    audioManager.PlaySFX("Fireball");
                     }
                 }
             }
@@ -183,12 +194,17 @@ public class Player : MonoBehaviour
                 animator.SetBool("Jump", true);
             else 
                 animator.SetBool("Jump", false);
+            if(gameManager.time <= 100 && timeWarning){
+                timeWarning = false;
+                audioManager.PlaySFX("TimeWarning");
+                music.pitch = 1.25f;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if(!dead)
+        if(!dead && !win)
             rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
         else
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -198,6 +214,7 @@ public class Player : MonoBehaviour
         if(other.gameObject.tag == "PowerUp"){
             Debug.Log(other.gameObject.name);
             if(other.gameObject.name == "Mushroom(Clone)"){
+                audioManager.PlaySFX("PowerUp");
                 gameManager.AddScore(1000, other.gameObject.transform);
                 if(!fire){
                     mini = false;
@@ -206,6 +223,7 @@ public class Player : MonoBehaviour
                     animator.SetBool("Mini", false);
                 }
             } else if(other.gameObject.name == "FireFlower(Clone)"){
+                audioManager.PlaySFX("PowerUp");
                 gameManager.AddScore(1000, other.gameObject.transform);
                 mini = false;
                 big = false;
@@ -215,6 +233,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("Mini", false);
             } else if(other.gameObject.name == "Star(Clone)"){
                 star = true;
+                audioManager.PlayMusic("StarTheme");
                 animator.SetBool("Star", true);
                 animator.SetBool("Mini", false);
             }
@@ -228,6 +247,7 @@ public class Player : MonoBehaviour
             else if(mini && !invulnerable)
                 Dead();
             else if(big || fire){
+                audioManager.PlaySFX("PowerDown");
                 mini = true;
                 big = false;
                 fire = false;
@@ -238,9 +258,6 @@ public class Player : MonoBehaviour
                 animator.SetBool("Invulnerable", true);
             }
         }
-
-        if(other.gameObject.tag == "Flag")
-            Win();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -248,8 +265,28 @@ public class Player : MonoBehaviour
             isJumping = false;
         }
         if(other.gameObject.tag == "Coin"){
+            audioManager.PlaySFX("Coin");
             gameManager.AddCoin();
             Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag == "Flag"){
+            Win();
+            if(transform.position.y > 3)
+                gameManager.AddScore(8000, transform);
+            else if(transform.position.y > 2)
+                gameManager.AddScore(4000, transform);
+            else if(transform.position.y > 1)
+                gameManager.AddScore(2000, transform);
+            else if(transform.position.y > 0)
+                gameManager.AddScore(1000, transform);
+            else if (transform.position.y > -0.5)
+                gameManager.AddScore(800, transform);
+            else if(transform.position.y > -1)
+                gameManager.AddScore(400, transform);
+            else if(transform.position.y > -1.8)
+                gameManager.AddScore(200, transform);
+            else if (transform.position.y > -3)
+                gameManager.AddScore(100, transform);
         }
     }
 
@@ -259,6 +296,7 @@ public class Player : MonoBehaviour
                 Debug.Log("Secret entered");
                 secretArea = true;
                 transform.position = new Vector2(24.8f, -6f);
+                audioManager.PlaySFX("PowerDown");
             }
         
         if(other.gameObject.tag == "Exit")
@@ -266,12 +304,15 @@ public class Player : MonoBehaviour
                 secretArea = false;
                 transform.position = new Vector2(101.43f, -1.8f);
                 m_Camera.transform.position = new Vector3(112f, 0f, -10f);
+                audioManager.PlaySFX("PowerDown");
             }   
     }
 
     void Dead(){
+        this.tag = "Untagged";
         dead = true;
-        animator.SetTrigger("Dead");
+        audioManager.PlaySFX("Die");
+        animator.SetBool("Dead", true);
         animator.SetBool("Running", false);
         animator.SetBool("Jump", false);
     }
@@ -281,6 +322,21 @@ public class Player : MonoBehaviour
     }
 
     void Win(){
+        win = true;
+        if(winSounds){
+            audioManager.PlaySFX("Flagpole");
+            winSounds = false;
+        }
+        animator.applyRootMotion = false;
+        animator.SetBool("Win", true);
+        gameManager.win = true;
+    }
 
+    void LevelClearSound(){
+        audioManager.PlaySFX("StageClear");
+    }
+
+    void WinAnimtionComplete(){
+        SceneManager.LoadScene("Main Menu");
     }
 }
