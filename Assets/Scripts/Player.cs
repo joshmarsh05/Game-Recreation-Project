@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] AudioManager audioManager;
     [SerializeField] GameManager gameManager;
+    public GameObject gameOverScreen;
     public AudioSource music;
     public float minX = -8.3f;
     public float maxX = 8.3f;
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(!dead && !win){
+        if(!dead && !win && Time.timeScale != 0){
             // camera movement
             if(!secretArea){
             if(previousPlayerX < currentPlayerX)
@@ -118,9 +119,9 @@ public class Player : MonoBehaviour
                 isJumping = true;
                 jumpTimeCounter = jumpTime;
                 if(mini)
-                    audioManager.PlaySFX("MiniJump");
+                        audioManager.PlaySFX("MiniJump");
                 if(big || fire)
-                    audioManager.PlaySFX("BigJump");
+                        audioManager.PlaySFX("BigJump");
             }
 
             /*
@@ -204,7 +205,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!dead && !win)
+        if(!dead && !win && Time.timeScale != 0)
             rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
         else
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -321,7 +322,10 @@ public class Player : MonoBehaviour
     }
 
     void DeathAnimationComplete(){ 
-        SceneManager.LoadScene("Level 1");
+        Time.timeScale = 0;
+        audioManager.PauseMusic();
+        audioManager.PlaySFX("GameOver");
+        gameOverScreen.SetActive(true);
     }
 
     void Win(){

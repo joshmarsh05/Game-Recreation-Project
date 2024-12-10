@@ -23,6 +23,13 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
     }
+    public void PauseMusic(){
+        musicSource.Pause();
+    }
+
+    public void ResumeMusic(){
+        musicSource.Play();
+    }
 
     public void PlaySFX(string name){
         Sound s = Array.Find(sfxSounds, x=> x.name == name);
