@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "PowerUp"){
             Debug.Log(other.gameObject.name);
-            if(other.gameObject.name == "Mushroom(Clone)"){
+            if(other.gameObject.GetComponent<PowerUp>().powerUp == PowerUpType.Mushroom){
                 audioManager.PlaySFX("PowerUp");
                 gameManager.AddScore(1000, other.gameObject.transform);
                 if(!fire){
@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
                     animator.SetBool("Big", true);
                     animator.SetBool("Mini", false);
                 }
-            } else if(other.gameObject.name == "FireFlower(Clone)"){
+            } else if(other.gameObject.GetComponent<PowerUp>().powerUp == PowerUpType.FireFlower){
                 audioManager.PlaySFX("PowerUp");
                 gameManager.AddScore(1000, other.gameObject.transform);
                 mini = false;
@@ -231,7 +231,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("Fire", true);
                 animator.SetBool("Big", false);
                 animator.SetBool("Mini", false);
-            } else if(other.gameObject.name == "Star(Clone)"){
+            } else if(other.gameObject.GetComponent<PowerUp>().powerUp == PowerUpType.Star){
                 star = true;
                 audioManager.PlayMusic("StarTheme");
                 animator.SetBool("Star", true);
@@ -268,6 +268,9 @@ public class Player : MonoBehaviour
             audioManager.PlaySFX("Coin");
             gameManager.AddCoin();
             Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag == "Death"){
+            Dead();
         }
         if(other.gameObject.tag == "Flag"){
             Win();
@@ -322,6 +325,7 @@ public class Player : MonoBehaviour
     }
 
     void Win(){
+        music.gameObject.SetActive(false);
         win = true;
         if(winSounds){
             audioManager.PlaySFX("Flagpole");
@@ -337,6 +341,6 @@ public class Player : MonoBehaviour
     }
 
     void WinAnimtionComplete(){
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("Credits");
     }
 }

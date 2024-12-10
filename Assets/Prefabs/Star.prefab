@@ -194,4 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  powerUp: 2
   rb: {fileID: 1015975723316821954}

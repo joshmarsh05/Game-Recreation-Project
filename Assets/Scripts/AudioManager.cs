@@ -10,21 +10,6 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-    public float musicSave = 1f;
-    public float sfxSave = 1f;
-
-    public void Awake(){
-        if(Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else{
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start(){
-        PlayMusic("Game");
-    }
 
     public void PlayMusic(string name){
         Sound s = Array.Find(musicSounds, x=> x.name == name);

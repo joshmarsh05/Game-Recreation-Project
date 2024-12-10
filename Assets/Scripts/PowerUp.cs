@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour
 {
     private float direction = 1;
     public float speed = 1f;
+    public PowerUpType powerUp;
     [SerializeField] Rigidbody2D rb;
 
     void Strat(){

@@ -14,6 +14,7 @@ TagManager:
   - Coin
   - Exit
   - Enemy
+  - Death
   layers:
   - Default
   - TransparentFX

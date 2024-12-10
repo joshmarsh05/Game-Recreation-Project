@@ -9,8 +9,9 @@ public class Spawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player"){
             Instantiate(spawn, new Vector2(transform.position.x + offset.x, transform.position.y + offset.y), transform.rotation);
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }
